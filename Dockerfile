@@ -26,21 +26,36 @@ WORKDIR /comfyui
 
 ARG SKIP_DEFAULT_MODELS
 # Download checkpoints/vae/LoRA to include in image.
-RUN if [ -z "$SKIP_DEFAULT_MODELS" ]; then wget -O models/checkpoints/sd_xl_base_1.0.safetensors https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors; fi
+RUN if [ -z "$SKIP_DEFAULT_MODELS" ]; then wget -O models/checkpoints/sexoholicRealPony_sexoholicRealPony.safetensors "https://huggingface.co/Gerchegg/TestModel/resolve/main/checkpoints/sexoholicRealPony_sexoholicRealPony.safetensors"; fi
 RUN if [ -z "$SKIP_DEFAULT_MODELS" ]; then wget -O models/vae/sdxl_vae.safetensors https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors; fi
-RUN if [ -z "$SKIP_DEFAULT_MODELS" ]; then wget -O models/vae/sdxl-vae-fp16-fix.safetensors https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors; fi
+# Download and setup custom nodes
+RUN git clone https://github.com/ltdrdata/ComfyUI-Manager custom_nodes/ComfyUI-Manager
+RUN git clone https://github.com/WASasquatch/was-node-suite-comfyui custom_nodes/was-node-suite-comfyui
+RUN git clone https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes custom_nodes/ComfyUI_Comfyroll_CustomNodes
+RUN git clone https://github.com/Gourieff/comfyui-reactor-node custom_nodes/comfyui-reactor-node
+RUN git clone https://github.com/chrisgoringe/cg-use-everywhere custom_nodes/cg-use-everywhere
+RUN git clone https://github.com/shadowcz007/comfyui-mixlab-nodes custom_nodes/comfyui-mixlab-nodes
+RUN git clone https://github.com/yolain/ComfyUI-Easy-Use custom_nodes/ComfyUI-Easy-Use
+RUN git clone https://github.com/jitcoder/lora-info custom_nodes/lora-info
+RUN git clone https://github.com/StartHua/Comfyui_joytag custom_nodes/Comfyui_joytag
+RUN git clone https://github.com/Gourieff/comfyui-reactor-node.git custom_nodes/comfyui-reactor-node
+RUN git clone https://github.com/shiimizu/ComfyUI_smZNodes custom_nodes/ComfyUI_smZNodes
+RUN git clone https://github.com/ltdrdata/ComfyUI-Impact-Pack custom_nodes/ComfyUI-Impact-Pack
 
 # Install ComfyUI dependencies
 RUN pip3 install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 \
     && pip3 install --no-cache-dir xformers==0.0.21 \
-    && pip3 install -r requirements.txt
+    && pip3 install -r requirements.txt \
+    && pip3 install ultralytics==8.2.55 \
+    && pip3 install numexpr==2.10.1 
 
 # Install runpod
 RUN pip3 install runpod requests
 
 # Support for the network volume
 ADD src/extra_model_paths.yaml ./
-
+# Support styles.csv
+ADD src/styles.csv ./
 # Go back to the root
 WORKDIR /
 
