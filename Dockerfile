@@ -56,6 +56,11 @@ RUN pip3 install runpod requests
 ADD src/extra_model_paths.yaml ./
 # Support styles.csv
 ADD src/styles.csv ./
+# Support styles.csv
+ADD embeddings/zPDXL-neg.pt ./embeddings/
+# Support styles.csv
+ADD embeddings/zPDXL.pt ./embeddings/
+
 # Go back to the root
 WORKDIR /
 
