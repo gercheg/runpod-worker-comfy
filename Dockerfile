@@ -32,13 +32,12 @@ RUN if [ -z "$SKIP_DEFAULT_MODELS" ]; then wget -O models/vae/sdxl_vae.safetenso
 RUN git clone https://github.com/ltdrdata/ComfyUI-Manager custom_nodes/ComfyUI-Manager
 RUN git clone https://github.com/WASasquatch/was-node-suite-comfyui custom_nodes/was-node-suite-comfyui
 RUN git clone https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes custom_nodes/ComfyUI_Comfyroll_CustomNodes
-RUN git clone https://github.com/Gourieff/comfyui-reactor-node custom_nodes/comfyui-reactor-node
+RUN git clone https://github.com/Gourieff/comfyui-reactor-node custom_nodes/comfyui-reactor-node || (cd custom_nodes/comfyui-reactor-node && git pull)
 RUN git clone https://github.com/chrisgoringe/cg-use-everywhere custom_nodes/cg-use-everywhere
 RUN git clone https://github.com/shadowcz007/comfyui-mixlab-nodes custom_nodes/comfyui-mixlab-nodes
 RUN git clone https://github.com/yolain/ComfyUI-Easy-Use custom_nodes/ComfyUI-Easy-Use
 RUN git clone https://github.com/jitcoder/lora-info custom_nodes/lora-info
 RUN git clone https://github.com/StartHua/Comfyui_joytag custom_nodes/Comfyui_joytag
-RUN git clone https://github.com/Gourieff/comfyui-reactor-node.git custom_nodes/comfyui-reactor-node
 RUN git clone https://github.com/shiimizu/ComfyUI_smZNodes custom_nodes/ComfyUI_smZNodes
 RUN git clone https://github.com/ltdrdata/ComfyUI-Impact-Pack custom_nodes/ComfyUI-Impact-Pack
 
